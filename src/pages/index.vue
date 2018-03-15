@@ -1,15 +1,17 @@
 <template>
-  <q-page class="flex flex-center" style="height: 100%">
+  <q-page>
     <q-carousel
+      class="absolute-full"
       v-model="currentSlide"
       arrows
-      style="height: 100%"
     >
-      <q-carousel-slide
+      <q-carousel-slide :class="{ 'slide-contain': !!(currentSlide % 2) }"
         v-for="n in 7" :key="n"
-        style="height: 100%"
+        img-src="statics/quasar-logo-full.svg"
       >
-        <img src="~assets/quasar-logo-full.svg" class="fit">
+        <div class="absolute-bottom custom-caption">
+          <div class="q-headline">{{ currentSlide % 2 ? 'Contain' : 'Cover'}} Framing</div>
+        </div>
       </q-carousel-slide>
 
       <q-carousel-control
@@ -30,7 +32,15 @@
   </q-page>
 </template>
 
-<style>
+<style lang="stylus">
+  .slide-contain
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+  .custom-caption
+    text-align center
+    padding 12px
+    color #ccc
+    background rgba(0, 0, 0, 0.5)
 </style>
 
 <script>
