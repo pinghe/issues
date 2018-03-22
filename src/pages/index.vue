@@ -6,13 +6,28 @@
       arrows
     >
       <q-carousel-slide :class="{ 'slide-contain': !!(currentSlide % 2) }"
+        v-if="showSlide"
         v-for="n in 7" :key="n"
         img-src="statics/quasar-logo-full.svg"
       >
-        <div class="absolute-bottom custom-caption">
+<!--         <div class="absolute-bottom custom-caption">
           <div class="q-headline">{{ currentSlide % 2 ? 'Contain' : 'Cover'}} Framing</div>
-        </div>
+        </div> -->
       </q-carousel-slide>
+
+      <q-carousel-control
+        slot="control"
+        position="top-right"
+        :offset="[hpos, 10]"
+        class="text-white"
+      >
+        <q-btn
+          round dense push
+          color="primary"
+          :icon="showSlide ? 'sync' : 'sync_disabled'"
+          @click="toggleShowSlide()"
+        />
+      </q-carousel-control>
 
       <q-carousel-control
         slot="control-button"
@@ -48,7 +63,15 @@ export default {
   name: 'PageIndex',
   data () {
     return {
-      currentSlide: 0
+      currentSlide: 0,
+      showSlide: true,
+      hpos: 10
+    }
+  },
+  methods: {
+    toggleShowSlide () {
+      this.hpos += 5
+      this.showSlide = !this.showSlide
     }
   }
 }
